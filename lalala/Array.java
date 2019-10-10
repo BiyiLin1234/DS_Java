@@ -1,4 +1,4 @@
-package com.lalala;
+package DS_Java.lalala;
 
 import com.sun.xml.internal.ws.policy.EffectiveAlternativeSelector;
 
@@ -23,9 +23,15 @@ public class Array<E> {
 
     @Override
     public String toString() {
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < getSize(); i++) {
+            res.append(get(i));
+            if(i!=getSize()-1)
+                res.append(",");
+        }
         return "Array{" +
-                "data=" + Arrays.toString(data) +
-                ", size=" + size +
+                "data=[" + res +
+                "], size=" + size +
                 '}';
     }
 
@@ -111,6 +117,19 @@ public class Array<E> {
         return remove(size-1);
     }
 
+    public E get(int index) {
+        if(index<0 || index >= size) {
+            throw new IllegalArgumentException("Get failed. Index is illegal");
+        }
+        return data[index];
+    }
+
+    public E getLast() {
+        return get(size-1);
+    }
+    public E getFirst() {
+        return get(0);
+    }
     //传入elem，删除数组中的elem
     public void removeElement(E elem) {
         int index = find(elem);

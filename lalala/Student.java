@@ -1,4 +1,4 @@
-package com.lalala;
+package DS_Java.lalala;
 
 public class Student {
     private String _name;

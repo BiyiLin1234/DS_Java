@@ -2,7 +2,7 @@ package DS_Java.lalala.Stack;
 
 import DS_Java.lalala.Array;
 
-public class ArrayStack<E> implements com.lalala.Stack.Stack<E> {
+public class ArrayStack<E> implements Stack<E> {
     Array<E> array;
 
     public ArrayStack(int capacity) {

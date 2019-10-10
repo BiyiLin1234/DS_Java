@@ -1,4 +1,4 @@
-package com.lalala.Stack;
+package DS_Java.lalala.Stack;
 
 public interface Stack<E> {
     //获取大小

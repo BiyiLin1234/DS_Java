@@ -99,6 +99,22 @@ public class BST<E extends Comparable<E>> {
         }
 
     }
+    public boolean contains(E e) {
+        return contains(root,e);
+    }
+    private boolean contains(Node node, E e) {
+        //自己直接写出这个代码还是有难度。
+        if(node==null)
+            return false;
+        if(e.compareTo(node.e) == 0) {
+            return true;
+        } else if (e.compareTo(node.e)<0){
+            return contains(node.left,e);
+        }
+        else {
+            return contains(node.right,e);
+        }
+    }
     //non recursive 遍历二分搜索树
     public void preOrderNR() {
         //用util工具包中的栈。

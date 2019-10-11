@@ -1,5 +1,7 @@
 package DS_Java.lalala.NonLiner;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 //E必须可比较大小
@@ -42,7 +44,7 @@ public class BST<E extends Comparable<E>> {
 //        } else {
 //            add(root, e);
 //        }
-        add2(root, e);
+        root = add2(root, e);
     }
 
     //add的第一版
@@ -81,6 +83,22 @@ public class BST<E extends Comparable<E>> {
         return node;
     }
 
+    public void preOrder() {
+        preOrder(root);
+    }
+    //git这是哪里用的不恰当吗？？？为什么没有完全同步。。。
+    private void preOrder(Node node) {
+        if(node==null)
+            return;
+        System.out.println(node.e);
+        if(node.left!=null){
+            preOrder(node.left);
+        }
+        if(node.right!=null){
+            preOrder(node.right);
+        }
+
+    }
     //non recursive 遍历二分搜索树
     public void preOrderNR() {
         //用util工具包中的栈。
@@ -94,6 +112,96 @@ public class BST<E extends Comparable<E>> {
                 stack.push(cur.right);
             if (cur.left != null)
                 stack.push(cur.left);
+        }
+    }
+    //利用队列实现层次遍历
+    public void levelOrder() {
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()) {
+            Node cur = q.remove();
+            System.out.println(cur.e);
+            if(cur.left!=null) {
+                q.add(cur.left);
+            }
+            if(cur.right!=null) {
+                q.add(cur.right);
+            }
+        }
+    }
+    //寻找最小
+    public E minium() {
+        if(size==0)
+            throw new IllegalArgumentException("BST is empty");
+        return minium(root).e;
+    }
+    private Node minium(Node node) {
+        if(node.left==null)
+            return node;
+        return minium(node.left);
+    }
+    //寻找最大
+    public E maxmun() {
+        if(size==0)
+            throw new IllegalArgumentException("BST is empty");
+        return maxmun(root).e;
+    }
+    private Node maxmun(Node node) {
+        if(node.right==null)
+            return node;
+        return maxmun(node.right);
+    }
+    //删除最值。
+    public E removeMin() {
+        E ret = minium();
+        root = removeMin(root);
+        return ret;
+    }
+    private Node removeMin(Node node){
+        if(node.left==null){
+            Node rightNode = node.right;
+            node.right =null;
+            size--;
+            return rightNode;
+        }
+        node.left = removeMin(node.left);
+        return node;
+    }
+    //删除指定
+    public void remove(E e) {
+        remove(root,e);
+    }
+    //删除以node为根的二分搜索树中值为e的既定。
+    //返回删除后新节点的根
+    private Node remove(Node node, E e){
+        if(node == null) {
+            return null;
+        }
+        if(e.compareTo(node.e)<0){
+            node.left = remove(node.left,e);
+            return node;
+        }
+        else if (e.compareTo(node.e)>0){
+            return node;
+        }
+        else {//e.equals(node.e)
+            if(node.left==null){
+                Node rightNode = node.right;
+                node.right=null;
+                size--;
+                return rightNode;
+            }
+            if(node.right==null){
+                Node leftNode = node.left;
+                node.left=null;
+                size--;
+                return leftNode;
+            }
+            //左右均不为空，返回比删除节点大的最小节点。作为根节点
+            Node successor = minium(node.right);
+            successor.right = removeMin(node.right);//其中已经size--了。
+            node.left=node.right=null;
+            return successor;
         }
     }
 }

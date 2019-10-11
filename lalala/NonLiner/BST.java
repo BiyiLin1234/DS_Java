@@ -1,5 +1,7 @@
 package DS_Java.lalala.NonLiner;
 
+import java.util.Stack;
+
 //E必须可比较大小
 //本课程二分搜索树不包含重复元素。（插入元素时候，相等自动去除。）
 public class BST<E extends Comparable<E>> {
@@ -40,7 +42,7 @@ public class BST<E extends Comparable<E>> {
 //        } else {
 //            add(root, e);
 //        }
-        add2(root,e);
+        add2(root, e);
     }
 
     //add的第一版
@@ -67,16 +69,31 @@ public class BST<E extends Comparable<E>> {
 
     //add的第二版
     private Node add2(Node node, E e) {
-        if(node == null) {
+        if (node == null) {
             size++;
             return new Node(e);
         }
-        if(e.compareTo(node.e) < 0) {
-            node.left = add2(node.left,e);
+        if (e.compareTo(node.e) < 0) {
+            node.left = add2(node.left, e);
+        } else if (e.compareTo(node.e) > 0) {
+            node.right = add2(node.right, e);
         }
-        else if(e.compareTo(node.e) > 0){
-            node.right = add2(node.right,e);
+        return node;
+    }
+
+    //non recursive 遍历二分搜索树
+    public void preOrderNR() {
+        //用util工具包中的栈。
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node cur = stack.pop();
+            System.out.println(cur.e);
+
+            if (cur.right != null)
+                stack.push(cur.right);
+            if (cur.left != null)
+                stack.push(cur.left);
         }
-        return  node;
     }
 }

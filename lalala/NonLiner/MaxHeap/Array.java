@@ -1,15 +1,20 @@
-package DS_Java.lalala;
+package DS_Java.lalala.NonLiner.MaxHeap;
 
-import com.sun.xml.internal.ws.policy.EffectiveAlternativeSelector;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Objects;
 
 //使用泛型，不能放置基本数据类型primitive <boolean byte char short int long float double>，但可使用包装类
 public class Array<E> {
     private E[] data;//
     private int size;//目前存放的元素的个数。所指向的元素正好没有值。（之前都有）
 
+    public Array(E[] arr) {
+        data = (E[])(new Object[arr.length]);
+        for (int i = 0; i < arr.length; i++) {
+            data[i] = arr[i];
+        }
+
+        size = arr.length;
+    }
     public Array(int capacity) {
         if (capacity <= 1)
             capacity = 10;
@@ -135,6 +140,20 @@ public class Array<E> {
         int index = find(elem);
         if (index != -1)
             remove(index);
+    }
+    public void set(int index, E e){
+        if(index < 0 || index >= size)
+            throw new IllegalArgumentException("Set failed. Index is illegal.");
+        data[index] = e;
+    }
+
+    public void swap( int i, int j) {
+        if(i<0 || i>=size || j<0 || j>=size) {
+            throw new IllegalArgumentException("Index is illegal.");
+        }
+        E t = data[i];
+        data[i] = data[j];
+        data[j] = t;
     }
 
     public static void main(String[] args) {

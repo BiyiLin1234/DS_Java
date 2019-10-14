@@ -38,7 +38,7 @@ public class Main {
             testData[i] = random.nextInt(Integer.MAX_VALUE);
         }
         double time1 =  testHeap(testData,false);
-        System.out.println(time1);
+        System.out.println(time1);;
         double time2 = testHeap(testData,true);
         System.out.println(time2);
 //        int n = 1_000_000;
